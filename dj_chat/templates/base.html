@@ -1,34 +1,24 @@
 {% load static %}
-<!-- templates/base.html -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>{% block title %}RabbitFarm{% endblock %}</title>
-
+    <link rel="stylesheet" href="{% static 'pico-1.5.11/css/pico.min.css' %}">
 </head>
-<body>
-
-    <div class="navbar">
-        <div class="logo">
-            <img src="" alt="Logo">
-        </div>
-        <div class="menu">
-            <a href="">testanchor1</a>
-            <a href="">testanchor2</a>
-            <a href="">testanchor3</a>
-            <a href="">testanchor4</a>
-        </div>
-    </div>
-    
-    <div class="content">
+<body class="bg-dark text-light">
+    <nav class="container bg-dark text-light py-2 my-2">
+        <a href="{% url 'chat_list' %}" class="btn btn-primary">Чаты</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary float-right">Выйти</a>
+    </nav>
+    <div class="container py-2 my-2 bg-light text-dark">
         {% block content %}
         {% endblock %}
     </div>
-    
 </body>
 </html>
+
+
+
+
+
+
