@@ -1,0 +1,35 @@
+# Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Virtual Environment
+venv/
+.env/
+.env.*
+
+# Editor-specific files
+.vscode/
+*.swp
+*.swo
+
+# PyCharm files
+.idea/
+
+# Compiled Python files
+*.pyc
+
+# Compiled C extension
+*.so
+
+# Distribution/dist folder
+/dist/
+
+# Django local settings
+local_settings.py
+
+# Ignore pipenv virtual environment
+Pipfile
+Pipfile.lock
