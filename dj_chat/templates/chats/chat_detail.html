@@ -4,7 +4,7 @@
     <h1>{{ chat.name }}</h1>
     <div id="message-list" class="message-list">
         {% for message in chat.messages.all %}
-            <div class="message-item">
+            <div class="message-item" id="message-{{ message.id }}">
                 <p><strong>{{ message.author.username }}</strong>: {{ message.text }} <small>{{ message.created_at }}</small></p>
             </div>
         {% endfor %}
@@ -19,7 +19,7 @@
             e.preventDefault();
             let messageInput = document.querySelector('#message-input');
             let message = messageInput.value;
-            messageInput.value = '';
+
             fetch('/chats/chat_{{ chat.pk }}/send_message/', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -30,14 +30,43 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function(response) {
-                return response.text();
-            }).then(function(text) {
-                // Здесь вы можете добавить сообщение в список сообщений на странице.
+                return response.json();  // Предполагается, что сервер возвращает JSON с новым сообщением
+            }).then(function(newMessage) {
+                updateMessageList(newMessage);
+                messageInput.value = '';
             });
         });
+
+        // Функция для обновления списка сообщений
+        function updateMessageList(message) {
+            let messageList = document.querySelector('#message-list');
+            let newMessageDiv = document.createElement('div');
+            newMessageDiv.innerHTML = `<p><strong>${message.author.username}</strong>: ${message.text} <small>${message.created_at}</small></p>`;
+            newMessageDiv.classList.add('message-item');
+            newMessageDiv.id = `message-${message.id}`;
+            messageList.appendChild(newMessageDiv);
+        }
+
+        // WebSocket для реального времени
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host +
+            '/ws/chat/{{ chat.pk }}/');
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            updateMessageList(data.message);
+        };
+
+        // Отправка сообщения через WebSocket
+        document.querySelector('#message-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const messageInput = document.querySelector('#message-input');
+            const message = messageInput.value;
+
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            }));
+        });
     </script>
-    
 {% endblock %}
-
-
-
