@@ -5,6 +5,7 @@
     <div class="list-group">
         {% for chat in chats %}
             <a href="{% url 'chat_detail' pk=chat.pk %}" class="list-group-item list-group-item-action">{{ chat.name }}</a>
+            <br>
         {% endfor %}
     </div>
 {% endblock %}

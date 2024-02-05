@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>{{ chat.room_name }}</h1>
+    <h1>{{ username }}</h1>
+    <h1>{{ chat.name }}</h1>
     <div id="chat-messages">
         {% for message in chat.messages.all %}
             <div class="message-item" id="message-{{ message.id }}">
