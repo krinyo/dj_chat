@@ -11,7 +11,7 @@
         {% endfor %}
     </div>
 
-    <form id="message-form">
+    <form id="message-form" data-username="{{username}}" data-chat-id="{{chat.room_name}}">
         <input id="message-input" type="text" />
         <button type="submit">Отправить</button>
     </form>

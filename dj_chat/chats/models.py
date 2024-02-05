@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Chat(models.Model):
-    room_name = models.CharField(max_length=255, default="1")  # Добавьте поле room_name
+    room_name = models.AutoField(primary_key=True)  # Добавьте поле room_name
     name = models.CharField(max_length=255, default='test chat')
     participants = models.ManyToManyField(User, related_name='chats')
     created_at = models.DateTimeField(auto_now_add=True)
