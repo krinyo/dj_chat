@@ -1,72 +1,19 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-    <h1>{{ chat.name }}</h1>
-    <div id="message-list" class="message-list">
+    <h1>{{ chat.room_name }}</h1>
+    <div id="chat-messages">
         {% for message in chat.messages.all %}
             <div class="message-item" id="message-{{ message.id }}">
                 <p><strong>{{ message.author.username }}</strong>: {{ message.text }} <small>{{ message.created_at }}</small></p>
             </div>
         {% endfor %}
     </div>
-    <form id="message-form" method="post">
-        {% csrf_token %}
-        <textarea id="message-input" name="message" class="form-control mb-3"></textarea>
-        <button type="submit" class="btn btn-primary">Отправить</button>
+
+    <form id="message-form">
+        <input id="message-input" type="text" />
+        <button type="submit">Отправить</button>
     </form>
-    <script>
-        document.querySelector('#message-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let messageInput = document.querySelector('#message-input');
-            let message = messageInput.value;
 
-            fetch('/chats/chat_{{ chat.pk }}/send_message/', {
-                method: 'POST',
-                body: JSON.stringify({
-                    'message': message,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(function(response) {
-                return response.json();  // Предполагается, что сервер возвращает JSON с новым сообщением
-            }).then(function(newMessage) {
-                updateMessageList(newMessage);
-                messageInput.value = '';
-            });
-        });
-
-        // Функция для обновления списка сообщений
-        function updateMessageList(message) {
-            let messageList = document.querySelector('#message-list');
-            let newMessageDiv = document.createElement('div');
-            newMessageDiv.innerHTML = `<p><strong>${message.author.username}</strong>: ${message.text} <small>${message.created_at}</small></p>`;
-            newMessageDiv.classList.add('message-item');
-            newMessageDiv.id = `message-${message.id}`;
-            messageList.appendChild(newMessageDiv);
-        }
-
-        // WebSocket для реального времени
-        const chatSocket = new WebSocket(
-            'ws://' + window.location.host +
-            '/ws/chat/{{ chat.pk }}/');
-
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            updateMessageList(data.message);
-        };
-
-        // Отправка сообщения через WebSocket
-        document.querySelector('#message-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const messageInput = document.querySelector('#message-input');
-            const message = messageInput.value;
-
-            chatSocket.send(JSON.stringify({
-                'message': message,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            }));
-        });
-    </script>
+    <script src="{% static 'js/chat.js' %}"></script>
 {% endblock %}
