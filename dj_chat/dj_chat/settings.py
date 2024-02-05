@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ng$952=r7%m(lq$3g5i7w%i@y(9xo!v(mrgl8x43!s1x+uhd+x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -148,3 +148,12 @@ CHANNEL_LAYERS = {
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ASGI_APPLICATION = 'dj_chat.routing.application'
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 4,
+        }
+    },
+]

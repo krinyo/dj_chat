@@ -8,3 +8,5 @@ from channels.db import database_sync_to_async
 import django
 django.setup()
 
+daphne -b 10.1.9.53 -p 8000 dj_chat.asgi:application
+

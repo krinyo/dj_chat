@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
     <div class="container py-2 my-2 bg-light text-dark">
-        <h1>Вход</h1>
+        <h1>Регистрация</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Войти</button>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
         </form>
-        <p>Еще не зарегистрированы? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+        <p>Уже зарегистрированы? <a href="{% url 'login' %}">Войти</a></p>
     </div>
 {% endblock %}
