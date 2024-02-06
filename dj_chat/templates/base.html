@@ -16,23 +16,39 @@
         .message-item {
             margin-bottom: 10px; /* Расстояние между сообщениями */
         }
+        header, footer{
+            height: 60px;
+        }
     </style>
        
 </head>
 <body class="bg-dark text-light">
-    <nav class="container bg-dark text-light py-2 my-2">
-        <a href="{% url 'chat_list' %}" class="btn btn-primary">Чаты</a>
-        <a href="{% url 'logout' %}" class="btn btn-primary float-right">Выйти</a>
-    </nav>
-    <div class="container py-2 my-2 bg-light text-dark">
-        {% block content %}
-        {% endblock %}
-    </div>
+    <article>
+        <header>
+            <nav class="container bg-dark text-light py-2 my-2">
+                <ul>
+                    <li><strong> <a href="{% url 'chat_list' %}"><img src="{% static 'images/dj_gif.gif' %}" style="width: 70px; height: 57px;" alt="Brand Logo"></a></strong></li>
+                </ul>
+                <ul>
+                    <li><a href="{% url 'chat_list' %}" class="secondary">Профиль пользователя <strong>{{username}}</strong> </a></li>
+                </ul>
+            </nav>
+        </header>
+    </article>
+    <main class="container">
+        <div class="container py-2 my-2 bg-light text-dark">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    <article>
+        <footer>
+            <nav>
+                <li></li>
+                <li></li>
+                <li><a href="https://github.com/krinyo/dj_chat"><img src="{% static 'images/github-mark-white.png' %}" style="width: 20px; height: 20px;" alt=""></a></li>
+            </nav>
+        </footer>
+    </article>
 </body>
 </html>
-
-
-
-
-
-

@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>{{ username }}</h1>
-    <h1>{{ chat.name }}</h1>
+    <h3>{{ chat.name }}</h3>
+    <div id="chat-participants">
+        <nav>
+            <ul>
+                {% for participant in participants %}
+                    <li><a>{{ participant.username }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
     <div id="chat-messages">
         {% for message in chat.messages.all %}
             <div class="message-item" id="message-{{ message.id }}">

@@ -13,7 +13,8 @@ def chat_list(request):
 @login_required
 def chat_detail(request, pk):
     chat = Chat.objects.get(pk=pk)
-    return render(request, 'chats/chat_detail.html', {'chat': chat, 'username': request.user.username})
+    participants = chat.participants.all()  # Получаем всех участников чата
+    return render(request, 'chats/chat_detail.html', {'chat': chat, 'username': request.user.username, 'participants': participants})
 
 @csrf_exempt
 def send_message(request, pk):

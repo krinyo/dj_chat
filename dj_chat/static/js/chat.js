@@ -19,7 +19,7 @@ chatSocket.onmessage = function(e) {
     chatMessages.appendChild(messageElement);
 
     // Ограничьте количество сообщений и прокрутите вниз
-    const maxMessages = 5;  // Измените это на ваше предпочтение
+    const maxMessages = 50;  // Измените это на ваше предпочтение
     if (chatMessages.children.length > maxMessages) {
         chatMessages.removeChild(chatMessages.firstChild);
     }
