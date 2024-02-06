@@ -4,6 +4,20 @@
 <html>
 <head>
     <link rel="stylesheet" href="{% static 'pico-1.5.11/css/pico.min.css' %}">
+    <style>
+        #chat-messages {
+            max-height: 400px; /* Измените это на ваше предпочтение */
+            overflow-y: auto;
+            padding: 50px;
+            /*border: 1px solid #ccc; /* Добавьте рамку для стилизации */
+            border-radius: 5px; /* Закруглите углы */
+        }
+    
+        .message-item {
+            margin-bottom: 10px; /* Расстояние между сообщениями */
+        }
+    </style>
+       
 </head>
 <body class="bg-dark text-light">
     <nav class="container bg-dark text-light py-2 my-2">

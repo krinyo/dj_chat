@@ -15,9 +15,16 @@ chatSocket.onmessage = function(e) {
     const messageElement = document.createElement('p');
     messageElement.innerHTML = `${data.message} <small>${new Date().toLocaleString()}</small>`;
 
-    if (data.room_name === chatId) {
-        document.querySelector('#chat-messages').appendChild(messageElement);
+    const chatMessages = document.querySelector('#chat-messages');
+    chatMessages.appendChild(messageElement);
+
+    // Ограничьте количество сообщений и прокрутите вниз
+    const maxMessages = 5;  // Измените это на ваше предпочтение
+    if (chatMessages.children.length > maxMessages) {
+        chatMessages.removeChild(chatMessages.firstChild);
     }
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
 
@@ -26,6 +33,7 @@ chatSocket.onclose = function(e) {
 };
 
 document.querySelector('#message-form').onsubmit = function(e) {
+    //console.log('Ваше сообщение отправлено на сервер: (' + message + ') имя пользователя:(' + username + ')')
     e.preventDefault();
     const messageInputDom = document.querySelector('#message-input');
     const message = messageInputDom.value;
