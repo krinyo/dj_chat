@@ -3,7 +3,7 @@
 {% block content %}
     <div style="display: flex; flex-wrap: wrap;">
         {% for chat in chats %}
-            <div style="flex: 1 0 30%; margin: 1%; padding: 1%;">
+            <div style="flex: 1 0 30%; margin: 1%; padding: 1%; width: 70px;">
                 <article><a href="{% url 'chat_detail' pk=chat.pk %}" class="list-group-item list-group-item-action">{{ chat.name }}</a></article>
             </div>
         {% endfor %}

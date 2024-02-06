@@ -6,22 +6,31 @@
         <nav>
             <ul>
                 {% for participant in participants %}
-                    <li><a>{{ participant.username }}</a></li>
+                    {% if participant.username == username %}
+                        <li><strong><a>{{ participant.username }}</a></strong></li>
+                    {% else %}
+                        <li><a>{{ participant.username }}</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </nav>
     </div>
-    <div id="chat-messages">
-        {% for message in chat.messages.all %}
-            <div class="message-item" id="message-{{ message.id }}">
-                <p><strong>{{ message.author.username }}</strong>: {{ message.text }} <small>{{ message.created_at }}</small></p>
-            </div>
-        {% endfor %}
-    </div>
+
 
     <form id="message-form" data-username="{{username}}" data-chat-id="{{chat.room_name}}">
-        <input id="message-input" type="text" />
-        <button type="submit">Отправить</button>
+        <article>
+            <div id="chat-messages">
+                {% for message in chat.messages.all %}
+                    <div class="message-item" id="message-{{ message.id }}">
+                        <p>{{ message.author.username }}: {{ message.text }} <small>{{ message.created_at }}</small></p>
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+        <div class="grid">
+            <div><input id="message-input" type="text" style="flex-grow: 1; margin-right: 10px;" /></div>
+            <div><button type="submit" class="outline" style="width: 50px; height: 50px;">></button></div>
+        </div>
     </form>
 
     <script src="{% static 'js/chat.js' %}"></script>

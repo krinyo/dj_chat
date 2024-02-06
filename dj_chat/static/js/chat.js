@@ -1,6 +1,9 @@
 const chatId = document.querySelector('#message-form').getAttribute('data-chat-id');
 const username = document.querySelector('#message-form').getAttribute('data-username');
 
+var chatMessages = document.getElementById('chat-messages');
+chatMessages.scrollTop = chatMessages.scrollHeight;
+
 const chatSocket = new WebSocket(
     'ws://'
     + window.location.host
