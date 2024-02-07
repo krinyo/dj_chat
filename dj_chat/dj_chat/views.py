@@ -1,6 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    return redirect('/chats')
 
 def register(request):
     if request.method == 'POST':
