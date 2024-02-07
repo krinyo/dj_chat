@@ -31,7 +31,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-
+        print(self.scope['user'].username)
+        print(text_data_json['room_name'])
         # Save the message to the database
         await self.save_message(message)
 

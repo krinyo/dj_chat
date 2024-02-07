@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'pico-1.5.11/css/pico.min.css' %}">
     <style>
         #chat-messages {
-            max-height: 400px; /* Измените это на ваше предпочтение */
+            max-height: 350px; /* Измените это на ваше предпочтение */
             overflow-y: auto;
             padding: 5px;
             /*border: 1px solid #ccc; /* Добавьте рамку для стилизации */
@@ -38,6 +38,9 @@
                 <li><strong> <a href="{% url 'chat_list' %}"><img src="{% static 'images/djcatnew.png' %}" style="width: 90px; height: 90px;" alt="Brand Logo"></a></strong></li>                
             </ul>
             <ul>
+                <li><a href="https://github.com/krinyo/dj_chat"><img src="{% static 'images/github-mark-white.png' %}" style="width: 20px; height: 20px;" alt=""></a></li>
+            </ul>
+            <ul>
                 <li><a href="{% url 'chat_list' %}" class="secondary"><strong>{{username}}</strong> </a></li>
                 <li><a href="" class="secondary"><strong>Выход</strong> </a></li>
             </ul>
@@ -49,12 +52,9 @@
             {% endblock %}
         </div>
     </main>
-    <article>
-        <nav>
-            <li></li>
-            <li></li>
-            <li><a href="https://github.com/krinyo/dj_chat"><img src="{% static 'images/github-mark-white.png' %}" style="width: 20px; height: 20px;" alt=""></a></li>
-        </nav>
-    </article>
+    <footer>
+
+    </footer>
+    <script src="{% static 'js/chat.js' %}"></script>
 </body>
 </html>

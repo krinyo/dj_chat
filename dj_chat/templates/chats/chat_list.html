@@ -4,8 +4,31 @@
     <div style="display: flex; flex-wrap: wrap;">
         {% for chat in chats %}
             <div style="flex: 1 0 30%; margin: 1%; padding: 1%; width: 70px;">
-                <article><a href="{% url 'chat_detail' pk=chat.pk %}" class="list-group-item list-group-item-action">{{ chat.name }}</a></article>
+                <a href="{% url 'chat_detail' pk=chat.pk %}" class="list-group-item list-group-item-action"><article>{{ chat.name }} </article></a></article>
             </div>
         {% endfor %}
+        <!-- Кнопка, которая открывает модальное окно -->
+        <button id="create-chat-button" class="list-group-item list-group-item-action" data-target="chat-modal" onclick="toggleModal(event)">Добавить чат +</button>
+
+        <!-- Модальное окно -->
+        <dialog id="chat-modal">
+            <article>
+            <a href="#close" aria-label="Close" class="close" data-target="chat-modal" onclick="toggleModal(event)"></a>
+            <h3>Создать новый чат</h3>
+            <form id="chat-form" onsubmit="createChat(event)">
+                <label for="chat-name">Имя чата:</label><br>
+                <input type="text" id="chat-name" name="chat-name"><br>
+                <label for="participants">Участники:</label><br>
+                <select id="participants" name="participants" multiple>
+                {% for user in all_users %}
+                    <option value="{{ user.username }}">{{ user.username }}</option>
+                {% endfor %}
+                </select>
+                <input type="submit" value="Создать">
+            </form>
+            </article>
+        </dialog>
+  
     </div>
+    
 {% endblock %}
