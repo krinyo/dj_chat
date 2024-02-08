@@ -17,7 +17,7 @@ chatSocket.onmessage = function(e) {
 
   // Создаем элемент 'kbd' с сообщением и временем
   const messageElement = document.createElement('kbd');
-  messageElement.innerHTML = `<span class="username">${data.username}:</span><span class="user-message">${data.message}</span>  <small>${new Date().toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}</small>`;
+  messageElement.innerHTML = `<span class="username">${data.username}: </span><span class="user-message">${data.message}</span><br><small>${new Date().toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}</small>`;
 
   // Создаем элемент 'div' с классом 'message-item'
   const messageItem = document.createElement('div');

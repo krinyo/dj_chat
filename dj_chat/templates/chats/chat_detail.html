@@ -9,7 +9,7 @@
         <div id="chat-messages" >
             {% for message in chat.messages.all %}
                 <div class="message-item {% if message.author.username == username %}right{% else %}left{% endif %}" id="message-{{ message.id }}">
-                    <kbd><span class="username">{{ message.author.username }}:</span> <span class="user-message">{{ message.text }}</span> <br><small>{{ message.created_at|date:"d M, H:i" }}</small></kbd>
+                    <kbd><span class="username">{{ message.author.username }}: </span> <span class="user-message">{{ message.text }}</span><br><small>{{ message.created_at|date:"d M, H:i" }}</small></kbd>
                 </div>
             {% endfor %}
         </div>
