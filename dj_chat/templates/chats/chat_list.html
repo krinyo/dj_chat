@@ -3,9 +3,17 @@
 {% block content %}
     <div style="display: flex; flex-wrap: wrap;">
         {% for chat in chats %}
-            <div style="flex: 1 0 30%; margin: 1%; padding: 1%; width: 70px;">
-                <a href="{% url 'chat_detail' pk=chat.pk %}" class="list-group-item list-group-item-action"><article>{{ chat.name }} </article></a></article>
-            </div>
+        <div id="chat-{{ chat.pk }}" style="flex: 1 0 30%; margin: 1%; padding: 1%; width: 70px;">
+            <article>
+                <strong>
+                <a href="{% url 'chat_detail' pk=chat.pk %}" class="list-group-item list-group-item-action">
+                    {{ chat.name }}
+                </a>
+                </strong>
+                <br>
+                <small class="new-message-count" style="color:#1095C1">{% for skipped in skipped_messages %}{% if skipped.chat == chat %}{{ skipped.count }}{% endif %}{% endfor %}</small>
+            </article>
+        </div>
         {% endfor %}
         <!-- Кнопка, которая открывает модальное окно -->
         <button id="create-chat-button" class="list-group-item list-group-item-action" data-target="chat-modal" onclick="toggleModal(event)">Добавить чат +</button>
@@ -30,5 +38,28 @@
         </dialog>
   
     </div>
+    <script>
+        // Функция для обновления количества новых сообщений без перезагрузки страницы
+        async function updateNewMessageCounts() {
+            const response = await fetch("{% url 'get_new_message_counts' %}");
+            const data = await response.json();
+            
+            for (const chatPk in data) {
+                const newMessageCount = data[chatPk];
+                const chatElement = document.getElementById(`chat-${chatPk}`);
+                if (chatElement) {
+                    const countElement = chatElement.querySelector('.new-message-count');
+                    if (countElement) {
+                        countElement.textContent = `(${newMessageCount})`;
+                    }
+                }
+            }
+        }
     
+        // Обновление количества новых сообщений при загрузке страницы
+        window.addEventListener('DOMContentLoaded', updateNewMessageCounts);
+    
+        // Обновление количества новых сообщений с интервалом каждые 5 секунд
+        setInterval(updateNewMessageCounts, 5000);
+    </script>
 {% endblock %}

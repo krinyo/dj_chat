@@ -1,26 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h3 style="text-align: center;">{{ chat.name }}</h3>
-
 
     <article>
+    <h4 style="text-align: center; margin: 0;">{{ chat.name }}</h4>
+    <hr>
     <form id="message-form" data-username="{{username}}" data-chat-id="{{chat.room_name}}">
-
-            <div id="chat-messages" >
-                {% for message in chat.messages.all %}
-                    <div class="message-item" id="message-{{ message.id }}">
-                        <p>{{ message.author.username }}: {{ message.text }} <small>{{ message.created_at }}</small></p>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="row">
-                <div class="col"><input id="message-input" type="text"  /></div>
-                <div class="col">
-                    <button type="submit" class="outline">0_0</button>
+        <div id="chat-messages" >
+            {% for message in chat.messages.all %}
+                <div class="message-item {% if message.author.username == username %}right{% else %}left{% endif %}" id="message-{{ message.id }}">
+                    <kbd><span class="username">{{ message.author.username }}:</span> <span class="user-message">{{ message.text }}</span> <br><small>{{ message.created_at|date:"d M, H:i" }}</small></kbd>
                 </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col"><input id="message-input" type="text"  /></div>
+            <div class="col">
+                <button type="submit" class="outline">send</button>
             </div>
-
+        </div>
     </form>
     <div id="chat-participants">
         <nav>

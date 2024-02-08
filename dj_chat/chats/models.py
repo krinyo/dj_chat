@@ -24,7 +24,7 @@ class Message(models.Model):
 class SkippedMessage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
-    count = models.IntegerField(default=0)
+    count = models.IntegerField(default=1)
 
     def __str__(self):
         return f'{self.user.username} - {self.chat.name}: {self.count} skipped messages'

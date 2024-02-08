@@ -12,23 +12,37 @@ const chatSocket = new WebSocket(
 );
 
 chatSocket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
-    console.log("Пришло сообщение от сервера, что сообщение создано");  // Проверьте вывод данных в консоль
+  const data = JSON.parse(e.data);
+  console.log("Пришло сообщение от сервера, что сообщение создано");  // Проверьте вывод данных в консоль
 
-    const messageElement = document.createElement('p');
-    messageElement.innerHTML = `${data.message} <small>${new Date().toLocaleString()}</small>`;
+  // Создаем элемент 'kbd' с сообщением и временем
+  const messageElement = document.createElement('kbd');
+  messageElement.innerHTML = `<span class="username">${data.username}:</span><span class="user-message">${data.message}</span>  <small>${new Date().toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}</small>`;
 
-    const chatMessages = document.querySelector('#chat-messages');
-    chatMessages.appendChild(messageElement);
+  // Создаем элемент 'div' с классом 'message-item'
+  const messageItem = document.createElement('div');
+  messageItem.classList.add('message-item');
+  if (data.username === document.querySelector('#message-form').dataset.username) {
+      messageItem.classList.add('right');
+  } else {
+      messageItem.classList.add('left');
+  }
+  messageItem.appendChild(messageElement);  // Добавляем 'kbd' в 'message-item'
 
-    // Ограничьте количество сообщений и прокрутите вниз
-    const maxMessages = 50;  // Измените это на ваше предпочтение
-    if (chatMessages.children.length > maxMessages) {
-        chatMessages.removeChild(chatMessages.firstChild);
-    }
+  const chatMessages = document.querySelector('#chat-messages');
+  chatMessages.appendChild(messageItem);  // Добавляем 'message-item' в 'chat-messages'
 
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+  // Ограничьте количество сообщений и прокрутите вниз
+  const maxMessages = 50;  // Измените это на ваше предпочтение
+  if (chatMessages.children.length > maxMessages) {
+      chatMessages.removeChild(chatMessages.firstChild);
+  }
+
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 };
+
+
+
 
 
 chatSocket.onclose = function(e) {
