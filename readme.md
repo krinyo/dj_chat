@@ -10,3 +10,6 @@ Installation:
     daphne -b 0.0.0.0 -p 8000 dj_chat.asgi:application
 
 ![image](https://github.com/krinyo/dj_chat/assets/57134381/a74bdd7e-5b99-4231-85b8-17c7976a8fe7)
+
+
+    You may need to check settings file firstly. Also you need to erase db and delete migrations, then create new.
